@@ -9,7 +9,7 @@ The GDC Spreadsheet Download Tool will download clinical and/or biospecimen meta
 
 The GDC Spreadsheet Download Tool produces TSVs in which each row represents one file and each column represents a clinical or biospecimen field. Because of the structure of the GDC Data Model, files can be associated with more than one of each field (e.g. a VCF associated with a tumor sample and a normal sample), which produces more than one column. This tool divides the TSV into smaller TSVs of equal column number.
 
-Usage: python gdc-tsv-tool.py <options> <manifest_file>
+Usage: python gdc-tsv-tool.py [options] <manifest_file>
 
 Options:
 * -h, --help : Displays documentation
