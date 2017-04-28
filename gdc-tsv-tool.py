@@ -259,7 +259,7 @@ main(arg_parse())
 
 uuid_dictionary = get_uuid_list(str(manifest_file))
 mono,di,poly = classify_file_list(uuid_dictionary)
-master = [(mono,".files.txt","Single-aliquot"),
+master = [(mono,".files.txt","Standard"),
 	(di,".vcfs.txt","VCF"),
 	(poly,".mafs.txt","MAF/XLSX")]
 
