@@ -117,6 +117,7 @@ def classify_file_list(file_dict):
 				elif extension == 'vcf': di.append(uuid)
 				else: mono.append(uuid)
 			elif extension == 'vcf': di.append(uuid)
+            elif extension == 'maf': poly.append(uuid)
 			else: mono.append(uuid)
 	else:
 		for uuid in file_dict.keys(): mono.append(uuid)
