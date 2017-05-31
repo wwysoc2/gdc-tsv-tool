@@ -129,8 +129,8 @@ def retrieve_metadata_for_list(file_list):
 	and arguments (clinical, biospecimen, etc)
 	'''
 	headers = {'Content-Type': 'application/json'}
-	url = 'https://gdc-api.nci.nih.gov/files'
-	if legacy == True: url = 'https://gdc-api.nci.nih.gov/legacy/files'
+	url = 'https://api.gdc.cancer.gov/files'
+	if legacy == True: url = 'https://api.gdc.cancer.gov/legacy/files'
 	fields =  "file_id,file_name,cases.submitter_id,cases.samples.sample_type," \
 		"cases.project.project_id,cases.project.name"
 	expand = ""
