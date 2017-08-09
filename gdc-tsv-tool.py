@@ -41,7 +41,7 @@ def error_parse(code):
 		"no_result":"Query produced no results, " \
 		"are these files from the Legacy Archive? (use -l)"
 	}
-	print "ERROR : " + error[code]
+	print("ERROR : " + error[code])
 	sys.exit(2)
 
 def verbose():
@@ -54,8 +54,8 @@ def verbose():
 	if get_clin == True: message += ">-- Retrieving clinical metadata\n"
 	if get_bio  == True: message += ">-- Retrieving biospecimen metadata\n"
 	if maf_info == True: message += ">-- Retrieving MAF/XLSX metadata\n"
-	print message
-	print "***************************************\n"
+	print(message)
+	print("***************************************\n")
 
 def main(args):
 	'''
@@ -226,7 +226,7 @@ def clean_matrix(testcase):
 	global all_columns
 	matrix = []
 	# Turning output into list of lists (matrix)
-	testcase = testcase.strip().split('\n')
+	testcase = testcase.decode().strip().split('\n')
 	for row in testcase:
 		row = row.replace('\r','')
 		row_list = row.split('\t')
@@ -238,8 +238,8 @@ def clean_matrix(testcase):
 	for column in columns:
 		column = list(column)
 		col_name = column[0]
-		if (len(filter(lambda x: x != 'live',(filter(None,column)))) > 1 \
-		and 'datetime' not in col_name) or all_columns == True:
+		if (len(list(filter(lambda x: x != 'live',(filter(None,column))))) > 1 \
+        and 'datetime' not in col_name) or all_columns == True:
 			good_cols.append(column)
 	good_cols = order_columns(good_cols)
 	clean_matrix = zip(*good_cols)
@@ -250,10 +250,10 @@ def clean_matrix(testcase):
 
 def run_main(my_list, extension, file_type):
 	fn = o_filename + extension
-	with open(fn,'wb') as my_file:
+	with open(fn,'w') as my_file:
 		matrix = retrieve_metadata_for_list(my_list)
 		my_file.write(clean_matrix(matrix))
-	print ">-- %s file metadata written to %s\n" % (file_type,fn)
+	print(">-- %s file metadata written to %s\n" % (file_type,fn))
 
 main(arg_parse())
 
