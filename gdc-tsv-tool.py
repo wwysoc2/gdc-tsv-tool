@@ -2,7 +2,7 @@ import sys, json, requests, re, argparse
 
 def arg_parse():
     parser = argparse.ArgumentParser(
-		description='----GDC Metadata TSV Download Tool----',
+		description='----GDC Metadata TSV Download Tool v2.0----',
 		usage= 'python gdc-tsv-tool.py <options> MANIFEST_FILE')
     parser.add_argument('-o','--output', metavar='FILE_PREFIX',
 		action="store", dest='o', type=str, default="metadata",
