@@ -1,6 +1,6 @@
 # Command Line Usage Instructions
 
-The GDC TSV Downloader is a command line tool. This documentation is meant to guide users who are not familiar with using command line interfaces.
+The GDC Spreadsheet Download tool is run from the command line. This documentation is meant to guide users who are not familiar with using the command line interface.
 
 ## Step 1:  Download the necessary files
 
