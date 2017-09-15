@@ -32,7 +32,7 @@ Notes:
 
 **Release Notes:**
 
-Version 2.0: September 14, 2017
+Version 2.0: September 15, 2017
 
 * Increased compatibility with Python 3, should work the same with Python 2.
 * Added command-line interface instructions for users (CLI_Instructions.txt)
