@@ -1,0 +1,27 @@
+# Command Line Usage Instructions
+
+The GDC TSV Downloader is a command line tool. This documentation is meant to guide users who are not familiar with using command line interfaces.
+
+## Step 1:  Download the necessary files
+
+You will need to download the script named `gdc-tsv-tool.py` and a manifest file from the Genomic Data Commons Data Portal (http://portal.gdc.cancer.gov).
+
+## Step 2: Open the console.
+
+Linux or OSX: Open the "Terminal" application.
+
+Windows:  Open the "Command Prompt" application.
+
+## Step 3: Run the command
+
+The command should look like this:
+
+`python gdc-tsv-tool.py <manifest_file_name>`
+
+### Step-by-step
+
+1. Type `python ` into the terminal.
+2. Click and drag the file, `gdc-tsv-tool.py`, into the terminal window.
+3. Add a space to the command.
+4. Click and drag the manifest file into the terminal window.
+5. Press enter

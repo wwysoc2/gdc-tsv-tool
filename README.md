@@ -28,6 +28,23 @@ Notes:
 * A test manifest is provided for troubleshooting:  `python gdc-tsv-tool.py Test_Manifest.txt`
 * The default parameters produce both clinical and biospecimen data, which is the same as passing both -c and -b.
 * Passing the simple (-s) argument overrides both the clinical (-c) and biospecimen (-b) arguments.
+* Not familiar with using the command line interface? See the `CLI_Instructions.txt` file for step-by-step directions on using this tool.
+
+**Release Notes:**
+
+Version 2.0: September 14, 2017
+
+* Increased compatibility with Python 3, should work the same with Python 2.
+* Added command-line interface instructions for users (CLI_Instructions.txt).
+* Added this "Release Notes" section
+
+Known Issues:
+* Using a list of UUIDs (-u option) will not separate file metadata by type.
+* Including Biotab files from the Legacy Archive in the manifest will cause the program to stall.
+
+Version 1.0: May 10, 2017
+
+* Initial release!
 
 Known Issues:
 * Using a list of UUIDs (-u option) will not separate file metadata by type.
