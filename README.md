@@ -35,8 +35,9 @@ Notes:
 Version 2.0: September 14, 2017
 
 * Increased compatibility with Python 3, should work the same with Python 2.
-* Added command-line interface instructions for users (CLI_Instructions.txt).
+* Added command-line interface instructions for users (CLI_Instructions.txt)
 * Added this "Release Notes" section
+* Updated `Test_Manifest.txt` to contain files that still appear in the GDC Data Portal
 
 Known Issues:
 * Using a list of UUIDs (-u option) will not separate file metadata by type.
