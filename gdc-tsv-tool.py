@@ -137,19 +137,18 @@ def retrieve_metadata_for_list(file_list):
 	if get_clin == True:
 		expand += "cases,cases.demographic,cases.exposures," \
 			"cases.diagnoses,cases.diagnoses.treatments," \
-			"cases.diagnoses,cases.family_histories," \
-			"cases.diagnoses,cases.diagnoses.clinical_test"
+			"cases.diagnoses,cases.family_histories,"
 	if get_bio == True:
 		expand += "cases,cases.samples,cases.samples.portions," \
 			"cases.samples.portions.analytes," \
 			"cases.samples.portions.analytes.aliquots," \
-			"analysis.metadata.read_groups" \
-
-	params = {"filters":
+			"cases.samples.portions.slides," \
+			"analysis.metadata.read_groups"
+   	params = {"filters":
 		 {"op":"in","content":
 		 {"field":"file_id", "value":file_list}},
 		 "format":"TSV", "fields":fields,
-		 "expand":expand,"size": "100000"}
+		 "expand":expand,"size": "10000"}
 	response = requests.post(url, data=json.dumps(params), headers=headers, stream=True)
 	if len(response.content.strip()) == 0: error_parse("no_result")
 	return response.content
@@ -166,11 +165,11 @@ def order_columns(matrix_list):
 	# This step looks at the_order and rearranges the column based on
 	# their entity-of-origin
 	the_order = ["special","cases","samples", "portions", "analytes",
-				"aliquots","demographic", "exposures","diagnoses",
+				"aliquots","slides","demographic", "exposures","diagnoses",
 				"treatments","family_histories","analysis_metadata_read_groups"]
 	clinfields = ["demographic", "exposures","treatments",
 					"diagnoses","family_histories","cases"]
-	biofields = ["samples", "portions", "analytes","aliquots",
+	biofields = ["samples", "portions", "analytes","aliquots","slides",
 					"analysis_metadata_read_groups","project"]
 	donefields = []
 	nmdict["special"] = []
@@ -253,7 +252,7 @@ def run_main(my_list, extension, file_type):
 	with open(fn,'w') as my_file:
 		matrix = retrieve_metadata_for_list(my_list)
 		my_file.write(clean_matrix(matrix))
-	print(">-- %s file metadata written to %s\n" % (file_type,fn))
+	print(">-- {} file metadata written to {}\n".format(file_type,fn))
 
 main(arg_parse())
 
