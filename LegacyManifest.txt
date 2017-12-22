@@ -1,6 +1,0 @@
-id	filename	md5	size	state
-0af879ec-4755-4536-9172-c7cc89b52393	unc.edu.f4addef3-be6d-40d6-8bb9-6ca5cf74173c.1492975.rsem.isoforms.normalized_results	d85739ddcbeaaf49947fe19e8f4a71c4	1382811	live
-51ef5299-0458-4267-a310-b2d5e91eab51	TCGA-OR-A5J2-01A-11D-A29I-10.01A-vs-10A.wig.bz2	0d8974ccfd3008410dc18d800d0952f6	1182383	live
-85d8d46e-5206-4c07-95e0-56b22c013321	jhu-usc.edu_BRCA.HumanMethylation450.5.lvl-3.TCGA-A2-A0YK-01A-22D-A10A-05.txt	993453bd47012b2305215f27b0232d6c	21275406	live
-a4013547-e7fb-49af-8ecc-08a318b5c576	unc.edu.52101d8f-f20a-45d8-aa74-720e5d830a5c.2510078.rsem.genes.normalized_results	9e51e99b97bd9d0ba47dede5c9017da0	437576	live
-c5b52dfa-c074-4fc6-9e9f-eac6b15513d1	unc.edu.db848332-4ee8-4f22-b6c9-b2634bd35918.1889764.rsem.genes.normalized_results	b127e51217611754b8d319ead988a9e4	434920	live
