@@ -7,32 +7,32 @@ import argparse
 
 def arg_parse():
     parser = argparse.ArgumentParser(
-        description='----GDC Metadata TSV Download Tool v2.0----',
-        usage= 'python gdc-tsv-tool.py <options> MANIFEST_FILE')
-    parser.add_argument('-o','--output', metavar='FILE_PREFIX',
-        action="store", dest='o', type=str, default="metadata",
-        help='Designates a prefix for output files')
-    parser.add_argument('-c','--clinical', action="store_true",
-        help='Only outputs clinical metadata')
-    parser.add_argument('-b','--biospecimen', action="store_true",
-        help='Only outputs biospecimen metadata')
-    parser.add_argument('-u','--uuid_list', action="store_false",
-        help='Pass a plain text list of UUIDs ' \
+        description = '----GDC Metadata TSV Download Tool v2.0----',
+              usage = 'python gdc-tsv-tool.py <options> MANIFEST_FILE')
+    parser.add_argument('-o', '--output', metavar = 'FILE_PREFIX',
+        action = "store", dest = 'o', type = str, default = "metadata",
+        help = 'Designates a prefix for output files')
+    parser.add_argument('-c', '--clinical', action = "store_true",
+        help = 'Only outputs clinical metadata')
+    parser.add_argument('-b', '--biospecimen', action = "store_true",
+        help = 'Only outputs biospecimen metadata')
+    parser.add_argument('-u', '--uuid_list', action = "store_false",
+        help = 'Pass a plain text list of UUIDs ' \
         '(one UUID per line) instead of a manifest')
-    parser.add_argument('-l','--legacy', action="store_true",
-        help='Manifest from GDC Legacy Archive')
-    parser.add_argument('-s','--simple', action="store_true",
-        help='Output a simple set of fields' \
+    parser.add_argument('-l', '--legacy', action = "store_true",
+        help = 'Manifest from GDC Legacy Archive')
+    parser.add_argument('-s', '--simple', action = "store_true",
+        help = 'Output a simple set of fields' \
         '(file name, file id, project id, ' \
         'case barcode, sample type)')
-    parser.add_argument('-x','--mafout', action="store_true",
-        help='Output separate metadata file for ' \
+    parser.add_argument('-x', '--mafout', action = "store_true",
+        help = 'Output separate metadata file for ' \
         'MAF or XLSX file (warning: messy)')
-    parser.add_argument('-a','--allop', action="store_true",
-        help='Empty or datetime columns are not removed' \
+    parser.add_argument('-a', '--allop', action = "store_true",
+        help = 'Empty or datetime columns are not removed' \
         ' from the output file')
-    parser.add_argument('manifest_file', action="store",
-        help='Path to manifest file (or UUID List with -u)')
+    parser.add_argument('manifest_file', action = "store",
+        help = 'Path to manifest file (or UUID List with -u)')
     args = parser.parse_args()
     return args
 
@@ -41,12 +41,12 @@ def error_parse(code):
     Generates the error messages
     '''
     error = {
-        "bad_mani":"Input must be valid GDC Manifest. " \
+        "bad_mani": "Input must be valid GDC Manifest. " \
         "\n\tGo to https://portal.gdc.cancer.gov/ to download a manifest",
-        "no_result":"Query produced no results, " \
+        "no_result": "Query produced no results, " \
         "are these files from the Legacy Archive? (use -l)"
     }
-    print("ERROR : " + error[code])
+    print("ERROR: " + error[code])
     sys.exit(2)
 
 def verbose():
@@ -55,7 +55,7 @@ def verbose():
     '''
     global get_clin, get_bio, maf_info, is_manifest
     message = '\n'
-    if sim_arg == True:  message += ">-- Retrieving basic metadata\n"
+    if sim_arg  == True: message += ">-- Retrieving basic metadata\n"
     if get_clin == True: message += ">-- Retrieving clinical metadata\n"
     if get_bio  == True: message += ">-- Retrieving biospecimen metadata\n"
     if maf_info == True: message += ">-- Retrieving MAF/XLSX metadata\n"
@@ -67,21 +67,22 @@ def main(args):
     Retrieves and parses the arguments
     '''
     global get_clin, get_bio, maf_info, is_manifest, bio_arg, clin_arg,\
-    sim_arg, all_columns, o_filename, legacy, manifest_file
-    maf_info = args.mafout
-    is_manifest = args.uuid_list
-    bio_arg = args.biospecimen
-    clin_arg = args.clinical
-    sim_arg = args.simple
-    all_columns = args.allop
-    o_filename = args.o
-    legacy = args.legacy
+           sim_arg, all_columns, o_filename, legacy, manifest_file
+    maf_info      = args.mafout
+    is_manifest   = args.uuid_list
+    bio_arg       = args.biospecimen
+    clin_arg      = args.clinical
+    sim_arg       = args.simple
+    all_columns   = args.allop
+    o_filename    = args.o
+    legacy        = args.legacy
     manifest_file = args.manifest_file
+    
     get_clin = True; get_bio = True
-    if bio_arg == True: get_clin = False
+    if bio_arg  == True: get_clin = False
     if clin_arg == True: get_bio = False
-    if bio_arg == True and clin_arg == True: get_bio = True; get_clin = True
-    if sim_arg == True: get_bio = False; get_clin = False
+    if bio_arg  == True and clin_arg == True: get_bio = True; get_clin = True
+    if sim_arg  == True: get_bio = False; get_clin = False
 
 def get_uuid_list(manifest):
     '''
@@ -136,25 +137,32 @@ def retrieve_metadata_for_list(file_list):
     headers = {'Content-Type': 'application/json'}
     url = 'https://api.gdc.cancer.gov/files'
     if legacy == True: url = 'https://api.gdc.cancer.gov/legacy/files'
-    fields =  "file_id,file_name,cases.submitter_id,cases.samples.sample_type," \
-        "cases.project.project_id,cases.project.name"
+    fields = "file_id, file_name, cases.submitter_id, cases.samples.sample_type," \
+             "cases.project.project_id, cases.project.name"
     expand = ""
     if get_clin == True:
         expand += "cases,cases.demographic,cases.exposures," \
-            "cases.diagnoses,cases.diagnoses.treatments," \
-            "cases.diagnoses,cases.family_histories,"
+                  "cases.diagnoses,cases.diagnoses.treatments," \
+                  "cases.diagnoses,cases.family_histories,"
+
     if get_bio == True:
         expand += "cases,cases.samples,cases.samples.portions," \
-            "cases.samples.portions.analytes," \
-            "cases.samples.portions.analytes.aliquots," \
-            "cases.samples.portions.slides," \
-            "analysis.metadata.read_groups"
-       params = {"filters":
-        {"op":"in","content":
-        {"field":"file_id", "value":file_list}},
-        "format":"TSV", "fields":fields,
-        "expand":expand,"size": "10000"}
-    response = requests.post(url, data=json.dumps(params), headers=headers, stream=True)
+                  "cases.samples.portions.analytes," \
+                  "cases.samples.portions.analytes.aliquots," \
+                  "cases.samples.portions.slides," \
+                  "analysis.metadata.read_groups"
+
+        params = {"filters":
+                 {"op":"in","content":
+                 {"field":"file_id", "value":file_list}},
+                  "format":"TSV",
+                  "size": "10000",
+                  "fields":fields,
+                  "expand":expand}
+    response = requests.post(url,
+                             data = json.dumps(params),
+                             headers = headers,
+                             stream = True)
     if len(response.content.strip()) == 0: error_parse("no_result")
     return response.content
 
@@ -166,16 +174,16 @@ def order_columns(matrix_list):
     new_matrix = []
     nmdict = {}
     # Special fields go first
-    special = ["file_name", "file_id","project_project_id","project_name"]
+    special = ["file_name", "file_id", "project_project_id", "project_name"]
     # This step looks at the_order and rearranges the column based on
     # their entity-of-origin
-    the_order = ["special","cases","samples", "portions", "analytes",
-                "aliquots","slides","demographic", "exposures","diagnoses",
-                "treatments","family_histories","analysis_metadata_read_groups"]
-    clinfields = ["demographic", "exposures","treatments",
-                    "diagnoses","family_histories","cases"]
-    biofields = ["samples", "portions", "analytes","aliquots","slides",
-                    "analysis_metadata_read_groups","project"]
+    the_order =  ["special", "cases", "samples", "portions", "analytes",
+                  "aliquots", "slides", "demographic", "exposures", "diagnoses",
+                  "treatments", "family_histories", "analysis_metadata_read_groups"]
+    clinfields = ["demographic", "exposures", "treatments",
+                  "diagnoses", "family_histories", "cases"]
+    biofields =  ["samples", "portions", "analytes", "aliquots", "slides",
+                  "analysis_metadata_read_groups", "project"]
     donefields = []
     nmdict["special"] = []
     for item in special:
@@ -264,8 +272,8 @@ main(arg_parse())
 uuid_dictionary = get_uuid_list(str(manifest_file))
 mono,di,poly = classify_file_list(uuid_dictionary)
 master = [(mono,".files.txt","Standard"),
-    (di,".vcfs.txt","VCF"),
-    (poly,".mafs.txt","MAF/XLSX")]
+          (di,".vcfs.txt","VCF"),
+          (poly,".mafs.txt","MAF/XLSX")]
 
 # Checks to see if each subset of files is actually present.
 # Then it performs the query and writes it to the file.
