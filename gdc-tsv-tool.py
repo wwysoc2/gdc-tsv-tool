@@ -1,4 +1,9 @@
-import sys, json, requests, re, argparse
+import sys
+import json
+import requests
+import re
+import argparse
+
 
 def arg_parse():
     parser = argparse.ArgumentParser(
@@ -145,10 +150,10 @@ def retrieve_metadata_for_list(file_list):
 			"cases.samples.portions.slides," \
 			"analysis.metadata.read_groups"
    	params = {"filters":
-		 {"op":"in","content":
-		 {"field":"file_id", "value":file_list}},
-		 "format":"TSV", "fields":fields,
-		 "expand":expand,"size": "10000"}
+		{"op":"in","content":
+		{"field":"file_id", "value":file_list}},
+        "format":"TSV", "fields":fields,
+        "expand":expand,"size": "10000"}
 	response = requests.post(url, data=json.dumps(params), headers=headers, stream=True)
 	if len(response.content.strip()) == 0: error_parse("no_result")
 	return response.content
