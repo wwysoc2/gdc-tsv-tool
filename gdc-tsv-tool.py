@@ -68,6 +68,7 @@ def main(args):
     '''
     global get_clin, get_bio, maf_info, is_manifest, bio_arg, clin_arg,\
            sim_arg, all_columns, o_filename, legacy, manifest_file
+
     maf_info      = args.mafout
     is_manifest   = args.uuid_list
     bio_arg       = args.biospecimen
@@ -77,7 +78,7 @@ def main(args):
     o_filename    = args.o
     legacy        = args.legacy
     manifest_file = args.manifest_file
-    
+
     get_clin = True; get_bio = True
     if bio_arg  == True: get_clin = False
     if clin_arg == True: get_bio = False
@@ -137,7 +138,7 @@ def retrieve_metadata_for_list(file_list):
     headers = {'Content-Type': 'application/json'}
     url = 'https://api.gdc.cancer.gov/files'
     if legacy == True: url = 'https://api.gdc.cancer.gov/legacy/files'
-    fields = "file_id, file_name, cases.submitter_id, cases.samples.sample_type," \
+    fields = "file_id,file_name,cases.submitter_id,cases.samples.sample_type," \
              "cases.project.project_id, cases.project.name"
     expand = ""
     if get_clin == True:
