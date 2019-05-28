@@ -31,6 +31,9 @@ def arg_parse():
     parser.add_argument('-a', '--allop', action = "store_true",
         help = 'Empty or datetime columns are not removed' \
         ' from the output file')
+    parser.add_argument('--no_rg', action = "store_true",
+        help = 'ReadGroup information is not included in the' \
+        ' output file')
     parser.add_argument('manifest_file', action = "store",
         help = 'Path to manifest file (or UUID List with -u)')
     args = parser.parse_args()
@@ -67,7 +70,7 @@ def main(args):
     Retrieves and parses the arguments
     '''
     global get_clin, get_bio, maf_info, is_manifest, bio_arg, clin_arg,\
-           sim_arg, all_columns, o_filename, legacy, manifest_file
+           sim_arg, all_columns, o_filename, legacy, manifest_file, no_rg
 
     maf_info      = args.mafout
     is_manifest   = args.uuid_list
@@ -78,6 +81,7 @@ def main(args):
     o_filename    = args.o
     legacy        = args.legacy
     manifest_file = args.manifest_file
+    no_rg         = args.no_rg
 
     get_clin = True; get_bio = True
     if bio_arg  == True: get_clin = False
@@ -150,16 +154,17 @@ def retrieve_metadata_for_list(file_list):
         expand += "cases,cases.samples,cases.samples.portions," \
                   "cases.samples.portions.analytes," \
                   "cases.samples.portions.analytes.aliquots," \
-                  "cases.samples.portions.slides," \
-                  "analysis.metadata.read_groups"
+                  "cases.samples.portions.slides," 
+        if no_rg == False:   
+            expand += "analysis.metadata.read_groups"
 
         params = {"filters":
                  {"op":"in","content":
                  {"field":"file_id", "value":file_list}},
                   "format":"TSV",
                   "size": "10000",
-                  "fields":fields,
-                  "expand":expand}
+                  "fields": fields,
+                  "expand": expand}
     response = requests.post(url,
                              data = json.dumps(params),
                              headers = headers,
