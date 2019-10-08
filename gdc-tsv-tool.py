@@ -153,13 +153,13 @@ def retrieve_metadata_for_list(file_list):
                   "cases.samples.portions.slides," \
                   "analysis.metadata.read_groups"
 
-        params = {"filters":
-                 {"op":"in","content":
-                 {"field":"file_id", "value":file_list}},
-                  "format":"TSV",
-                  "size": "10000",
-                  "fields":fields,
-                  "expand":expand}
+    params = {"filters":
+             {"op":"in","content":
+             {"field":"file_id", "value":file_list}},
+              "format":"TSV",
+              "size": "10000",
+              "fields":fields,
+              "expand":expand}
     response = requests.post(url,
                              data = json.dumps(params),
                              headers = headers,
